@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>OracleAI - Asistente Técnico Profesional</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>OcladeAI - Beta 1.0</title>
   <style>
-   root {
-      --bg: #FAFAF9; /* Fondo crema claro, como Claude */
-      --surface: #FFFFFF;
-      --text: #1D1D1F; /* Negro profundo */
-      --text-secondary: #86868B; /* Gris secundario */
-      --border: #E5E5EA; /* Gris de borde sutil */
-      --primary: #007AFF; /* Azul Apple/Profesional */
-      --primary-light: #EBF5FF;
-      --primary-dark: #0056CC;
-      --assistant-bg: #F2F2F7; /* Gris muy claro para mensajes del bot */
-      --user-bg: #007AFF; /* Azul para mensajes del usuario */
-      --user-text: #FFFFFF;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    :root {
+      --primary: #6366f1; /* Indigo */
+     primary-light: #e0e7ff;
+      --primary-dark: #4f46e5;
+      --text: #e0e7ff;
+      --text-secondary: #94a3b8;
+      --surface: rgba(15, 23, 42, 0.7); /* Fondo oscuro con transparencia */
+      --border: #374151;
+      --assistant-bg: rgba(30, 41, 59, 0.6);
+      --user-bg: var(--primary);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -30,103 +28,114 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--bg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0f172a;
       color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
       overflow: hidden;
+      position: relative;
     }
 
+    /* --- FONDO DEÍCULAS ÉPICO --- */
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* --- LOGO ANIMADO --- */
+logo-container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-text {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #8b5cf6, #0ea5e9, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .logo-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 1.2s forwards;
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+       : translateY(0      }
+    }
+
+    /* --- CONTENEDOR PRINCIPAL --- */
     .container {
       width: 100%;
       max-width: 800px;
       background: var(--surface);
       border-radius: 16px;
       box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      height: 90vh;
       overflow: hidden;
+      padding: 20px;
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
-    }
-
-    header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items;
-      gap: 16px;
-      background-color: var(--surface);
-    }
-
-    .logo {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--primary), #5856D6);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-
-    h1 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .subtitle {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 400;
+      z-index: 1;
     }
 
     .chat-container {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 20px;
-      overflow: hidden;
-      background-color: var(--bg); /* Fondo del chat igual al body */
+      gap: 20px;
     }
 
     .history {
-      flex: 1;
+      flex;
       overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      background-color: var(--bg);
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--assistant-bg);
+      border: 1px solid var(--border);
     }
 
     .message {
-      padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 80%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      max-width: 85%;
       word-wrap: break-word;
-      line-height: 1.45;
-      font-family: inherit;
+      line-height: 1.5;
+      font-family: 'Consolas', monospace;
       font-size: 0.95rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .user-message {
-      background-color: var(--user-bg);
-      color: var(--user-text);
+      background: var(--user-bg);
+      color: white;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
     }
 
     .assistant-message {
-      background-color: var(--assistant-bg);
+      background: var(--assistant-bg);
       color: var(--text);
       align-self: flex-start;
       border-bottom-left-radius: 4px;
@@ -135,483 +144,20 @@
     .input-area {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 16px;
-      background-color: var(--surface);
-      border-top: 1px solid var(--border);
-    }
-
-    .input-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 12px;
+      gap: 16px;
     }
 
     textarea {
-      flex: 1;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      resize: none;
-      font-family: inherit;
-      font-size: 1rem;
-      min-height: 60px;
-      max-height: 150px;
-      background-color: var(--surface);
-      color: var(--text);
-      line-height: 1.45;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-light);
-    }
-
-    .attachment-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .attach-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background-color: var(--surface);
-      color: var(--text-secondary);
-      display: flex;
-      align-items center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-      font-size: 1.1rem;
-    }
-
-    .attach-btn:hover {
-      background-color: var(--primary-light);
-      color: var(--primary);
-    }
-
-    #fileInput {
-      display: none;
-    }
-
-    .send-button {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: none;
-      background-color: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s,0.1s;
-      font-size: 1.2rem;
-    }
-
-    .send-button:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .send-button:active {
-      transform: scale(0.95);
-    }
-
-    /* --- BARRA DE HABILIDADES (como en la imagen) --- */
-    .skills-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .skill-btn {
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background-color: var(--surface);
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .skill-btn:hover {
-      background-color: var(--primary-light);
-      color: var(--primary);
-      border-color: var(--primary);
-    }
-
-    .skill-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    /* --- ICONOS SVG INTEGRADOS --- */
-    .icon-code {
-      fill: currentColor;
-    }
-    .icon-pencil {
-      fill: currentColor;
-    }
-    .icon-graduation {
-      fill: currentColor;
-    }
-    .icon-coffee {
-      fill: currentColor;
-    }
-    .icon-bulb {
-      fill: currentColor;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <header>
-      <div class="logo">O</div>
-      <div>
-        <h1>OracleAI</h1>
-        <div class="subtitle">Beta 1.0 - ¿En qué puedo ayudarte hoy?</div>
-      </div>
-    </header>
-
-    <div class="chat-container">
-      <div id="historyContainer" class="history">
-        <div class="message-message">
-          Hola, soy OracleAI. ¿En qué puedo ayudarte hoy? (ej: Crea un plugin de Minecraft, configura un panel, etc.)
-        </div>
-      </div>
-
-      <div class="input-area">
-        <textarea id="questionInput" placeholder="Escribe / para habilidades"></textarea>
-
-        <div class="skills-bar">
-          <button class="skill-btn" onclick="insertText('<></> Código')">
-            <svg class="icon-code" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-44 4-4"/></svg>
-            Código
-          </button>
-          <button class="skill-btn" onclick="insertText('✏️ Escribir')">
-            <svg class="icon-pencil" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.03 0-1.41l-2.34-2.34c-.39-.39-1.03-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-            Escribir
-          </button>
-          <button class="skill-btn" onclick="insertText('🎓 Aprender')">
-            <svg class="icon-graduation" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Aprender
-          </button>
-          <button class="skill-btn" onclick="insertText('☕ Vida personal')">
-            <svg class="icon-coffee" viewBox="0 0 24 24"><path d="M18 10h-1V8a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2H3v12h18V10zm-6-4h1v2h-1V6zm-4 0h1v2h-1V6zm0 4h4v2H8v-2zm0 2h4v2H8v-24 0h1v2h-1v-2zm4 0h-1v2h1v-2zm0 2h-1v2h1v-2z"/></svg>
-            Vida personal
-          </button>
-          <button class="skill-btn" onclick="insertText('💡 Selección de Oracle')">
-            <svg class="icon-bulb" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h-2v5H7v2h2v7h2v-7h2V9h-2V7z"/></svg>
-            Selección de Oracle
-          </button>
-        </div>
-
-        <div class="input-row">
-          <label for="fileInput" class="attach-btn" title="Adjuntar Imagen">📎</label>
-          <button id="cameraButton" class="attach-btn" title="Usar Cámara">📷</button>
-          <button class="send-button" onclick="enviarPregunta()" title="Enviar">➤</button>
-        </div>
-      </div>
-
-      <div id="responseContainer"></div>
-    </div>
-  </div>
-
-  <script>
-    // --- Función para insertar texto en el textarea ---
-    function insertText(text) {
-      const textarea = document.getElementById('questionInput');
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const value = textarea.value;
-      textarea.value = value.substring(0, start) + text + value.substring(end);
-      textarea.focus();
-      // Mover el cursor al final del texto insertado
-      textarea.setSelectionRange(start + text.length, start + text.length);
-    }
-
-    // --- Manejo de Archivos y Cámara ---
-    let imagenAdjunta = null;
-
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          imagenAdjunta = e.target.result;
-          console.logunta:", file.name);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    document.getElementById('cameraButton').addEventListener('click', function() {
-      const cameraInput = document.createElement('input');
-      cameraInput.type = 'file';
-      cameraInput.accept = 'image/*';
-      cameraInput.capture = 'environment';
-      cameraInput.onchange = function(event) {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            imagenAdjunta = e.target.result;
-            console.log("Imagen tomada con cámara");
-          };
-          reader.readAsDataURL(file);
-        }
-      };
-      cameraInput.click();
-    });
-
-    // --- FUNCIÓN DE ENVIAR PREGUNTA ---
-    let sessionId = null;
-    if (!sessionId) {
-        sessionId = localStorage.getItem('oracleai_session') || Date.now().toString();
-        localStorage.setItem('oracleai_session', sessionId);
-    }
-
-    async function enviarPregunta() {
-      const input = document.getElementById('questionInput');
-      const container = document.getElementById('responseContainer');
-      const pregunta = input.value.trim();
-
-      if (!pregunta) {
-        alert("Por favor, escribe un mensaje.");
-        return;
-      }
-
-      const datosEnviar = {
-        pregunta: pregunta,
-        sessionId: sessionId
-      };
-
-      if (imagenAdjunta) {
-        datosEnviar.imagen = imagenAdjunta;
-      }
-
-      container.innerHTML = '<div class="loading">OracleAI está pensando...</div>';
-
-      try {
-        const response = await fetch('/api/puntar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(datosEnviar)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          container.innerHTML = '';
-          const historyDiv = document.getElementById('historyContainer');
-
-          const userMsgDiv = document.createElement('div');
-          userMsgDiv.classList.add('message', 'user-message');
-          userMsgDiv.textContent = pregunta;
-          historyDiv.appendChild(userMsgDiv);
-
-          if (imagenAdjunta) {
-            const imgPreview = document.createElement('img');
-            imgPreview.src = imagenAdjunta;
-            imgPreview.style.maxWidth = '200px';
-            imgPreview.style.borderRadius = '8px';
-            imgPreview.style.marginTop = '5px';
-            userMsgDiv.appendChild(imgPreview);
-          }
-
-          const assistantMsgDiv = document.createElement('div');
-          assistantMsgDiv.classList.add('message', '¡Perfecto! Ahora entiendo **exactamente** lo que quieres.
-
-La imagen que compartiste es de **Claude by Anthropic**, y su diseño es un ejemplo de **minimalismo profesional, elegante y moderno**:
-
-*   Fondo casi blanco (crema muy suave).
-*   Tipografía limpia y legible.
-*   Botones redondeados con iconos y significativos.
-*   Interfaz sin bordes ni sombras excesivas.
-*   Espaciado generoso y jerarquía visual clara.
-*   El enfoque está 100% en el contenido y la interacción.
-
-Vamos a replicar ese estilo **al pie de la letra**, pero para **OracleAI Beta 1.0**.
-
----
-
-### Diseño Profesional al Estilo (Minimalista y Elegante)
-
-#### Archivo: `index.htmlEstilo Claude)
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>OracleAI - Asistente Técnico Profesional</title>
-  <style>
-   root {
-      --bg: #FAFAF9; /* Fondo crema claro, como Claude */
-      --surface: #FFFFFF;
-      --text: #1D1D1F; /* Negro profundo */
-      --text-secondary: #86868B; /* Gris secundario */
-      --border: #E5E5EA; /* Gris de borde sutil */
-      --primary: #007AFF; /* Azul Apple/Profesional */
-      --primary-light: #EBF5FF;
-      --primary-dark: #0056CC;
-      --assistant-bg: #F2F2F7; /* Gris muy claro para mensajes del bot */
-      --user-bg: #007AFF; /* Azul para mensajes del usuario */
-      --user-text: #FFFFFF;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      overflow: hidden;
-    }
-
-    .container {
       width: 100%;
-      max-width: 800px;
-      background: var(--surface);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      height: 90vh;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items;
-      gap: 16px;
-      background-color: var(--surface);
-    }
-
-    .logo {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--primary), #5856D6);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-
-    h1 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .subtitle {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 400;
-    }
-
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      overflow: hidden;
-      background-color: var(--bg); /* Fondo del chat igual al body */
-    }
-
-    .history {
-      flex: 1;
-      overflow-y: auto;
       padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      background-color: var(--bg);
-    }
-
-    .message {
-      padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 80%;
-      word-wrap: break-word;
-      line-height: 1.45;
-      font-family: inherit;
-      font-size: 0.95rem;
-      box-shadow: var(--shadow);
-    }
-
-    .user-message {
-      background-color: var(--user-bg);
-      color: var(--user-text);
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-
-    .assistant-message {
-      background-color: var(--assistant-bg);
-      color: var(--text);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-
-    .input-area {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 16px;
-      background-color: var(--surface);
-      border-top: 1px solid var(--border);
-    }
-
-    .input-row {
-      display: flex;
-      align-items: flex-end;
-      gap: 12px;
-    }
-
-    textarea {
-      flex: 1;
-      padding: 14px 16px;
       border: 1px solid var(--border);
       border-radius: 12px;
-      resize: none;
+      resize: vertical;
       font-family: inherit;
       font-size: 1rem;
-      min-height: 60px;
-      max-height: 150px;
-      background-color: var(--surface);
+      min-height: 80px;
+      background: rgba(30, 41, 59, 0.5);
       color: var(--text);
-      line-height: 1.45;
     }
 
     textarea:focus {
@@ -620,28 +166,55 @@ Vamos a replicar ese estilo **al pie de la letra**, pero para **OracleAI Beta 1.
       box-shadow: 0 0 0 3px var(--primary-light);
     }
 
-    .attachment-buttons {
+    .skills-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-btn {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.5);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
       display: flex;
+      align-items: center;
       gap: 8px;
     }
 
+    .skill-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border-color: var(--primary);
+    }
+
+    .attachment-row {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
     .attach-btn {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: 1px solid var(--border);
-      background-color: var(--surface);
+      background: rgba(30, 41, 59, 0.5);
       color: var(--text-secondary);
       display: flex;
-      align-items center;
+      align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-      font-size: 1.1rem;
+      transition: all 0.3s;
+      font-size: 1.2rem;
     }
 
     .attach-btn:hover {
-      background-color: var(--primary-light);
+      background: var(--primary-light);
       color: var(--primary);
     }
 
@@ -650,128 +223,96 @@ Vamos a replicar ese estilo **al pie de la letra**, pero para **OracleAI Beta 1.
     }
 
     .send-button {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       border: none;
-      background-color: var(--primary);
+      background: var(--primary);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background-color 0.2s,0.1s;
-      font-size: 1.2rem;
+      transition: all 0.3s;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
     }
 
     .send-button:hover {
-      background-color: var(--primary-dark);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
     }
 
-    .send-button:active {
-      transform: scale(0.95);
-    }
-
-    /* --- BARRA DE HABILIDADES (como en la imagen) --- */
-    .skills-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .skill-btn {
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background-color: var(--surface);
+    .loading {
       color: var(--text-secondary);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-style: italic;
+      padding: 10px;
+      font-size: 0.9rem;
     }
 
-    .skill-btn:hover {
-      background-color: var(--primary-light);
-      color: var(--primary);
-      border-color: var(--primary);
+    .response-error {
+      color: #f87171;
+      padding: 12px;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid #f87171;
+      border-radius: 12px;
+      margin-top: 10px;
+      font-size: 0.9rem;
     }
 
-    .skill-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    /* --- ICONOS SVG INTEGRADOS --- */
-    .icon-code {
-      fill: currentColor;
-    }
-    .icon-pencil {
-      fill: currentColor;
-    }
-    .icon-graduation {
-      fill: currentColor;
-    }
-    .icon-coffee {
-      fill: currentColor;
-    }
-    .icon-bulb {
-      fill: currentColor;
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .logo-text { font-size: 2rem; }
+      .container { padding: 16px; }
+      .history { padding: 16px; }
+      .message { padding: 12px 14px; font-size: 0.9 }
+      .attachment-row { justify-content: space-between; }
+      .send-button { width: 44px; height: 44px; font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Canvas para partículas -->
+  <canvas id="particles-canvas"></canvas>
+
   <div class="container">
-    <header>
-      <div class="logo">O</div>
-      <div>
-        <h1>OracleAI</h1>
-        <div class="subtitle">Beta 1.0 - ¿En qué puedo ayudarte hoy?</div>
-      </div>
-    </header>
+    <div class="logo-container">
+      <h1 class="logo-text">OcladeAI</h1>
+      <div class="logo-subtitle">Beta 1.0 — ¿En qué puedo ayudarte hoydiv>
+    </div>
 
     <div class="chat-container">
       <div id="historyContainer" class="history">
-        <div class="message-message">
-          Hola, soy OracleAI. ¿En qué puedo ayudarte hoy? (ej: Crea un plugin de Minecraft, configura un panel, etc.)
+        <div class="message assistant-message">
+          Hola, soy OcladeAI. ¿En qué puedo ayudarte hoy? (ej: Crea un plugin de Minecraft, configura un panel, etc.)
         </div>
       </div>
 
       <div class="input-area">
-        <textarea id="questionInput" placeholder="Escribe / para habilidades"></textarea>
+        <textarea id="questionInput" placeholder="Escribe / para habilidades..."></textarea>
 
         <div class="skills-bar">
           <button class="skill-btn" onclick="insertText('<></> Código')">
-            <svg class="icon-code" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-44 4-4"/></svg>
-            Código
+            <span><> </span>Código
           </button>
           <button class="skill-btn" onclick="insertText('✏️ Escribir')">
-            <svg class="icon-pencil" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.03 0-1.41l-2.34-2.34c-.39-.39-1.03-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-            Escribir
+            <span>✏️ </span>Escribir
           </button>
-          <button class="skill-btn" onclick="insertText('🎓 Aprender')">
-            <svg class="icon-graduation" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Aprender
+          <button class="skill-btn" onclick="insertText('✅ Aprender')">
+            <span>✅ </span>Aprender
+          </          <button class="skill-btn" onclick="insertText('☕ Vida personal')">
+            <span>☕ </span>Vida personal
           </button>
-          <button class="skill-btn" onclick="insertText('☕ Vida personal')">
-            <svg class="icon-coffee" viewBox="0 0 24 24"><path d="M18 10h-1V8a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2H3v12h18V10zm-6-4h1v2h-1V6zm-4 0h1v2h-1V6zm0 4h4v2H8v-2zm0 2h4v2H8v-24 0h1v2h-1v-2zm4 0h-1v2h1v-2zm0 2h-1v2h1v-2z"/></svg>
-            Vida personal
-          </button>
-          <button class="skill-btn" onclick="insertText('💡 Selección de Oracle')">
-            <svg class="icon-bulb" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h-2v5H7v2h2v7h2v-7h2V9h-2V7z"/></svg>
-            Selección de Oracle
+          <button class="skill-btn" onclick="insertText('💡 Selección de Oclade')">
+            <span>💡 </span>Selección de Oclade
           </button>
         </div>
 
-        <div class="input-row">
+        <div class="attachment-row">
           <label for="fileInput" class="attach-btn" title="Adjuntar Imagen">📎</label>
           <button id="cameraButton" class="attach-btn" title="Usar Cámara">📷</button>
-          <button class="send-button" onclick="enviarPregunta()" title="Enviar">➤</button>
+          <button class="send-button" onclick="enviarPregunta()">➤</button>
         </div>
       </div>
 
@@ -780,123 +321,174 @@ Vamos a replicar ese estilo **al pie de la letra**, pero para **OracleAI Beta 1.
   </div>
 
   <script>
-    // --- Función para insertar texto en el textarea ---
-    function insertText(text) {
-      const textarea = document.getElementById('questionInput');
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const value = textarea.value;
-      textarea.value = value.substring(0, start) + text + value.substring(end);
-      textarea.focus();
-      // Mover el cursor al final del texto insertado
-      textarea.setSelectionRange(start + text.length, start + text.length);
-    }
+    // --- ANIMACIÓN DE PARTÍCULAS ÉPICA (Canvas 2D) ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
 
-    // --- Manejo de Archivos y Cámara ---
-    let imagenAdjunta = null;
-
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          imagenAdjunta = e.target.result;
-          console.logunta:", file.name);
-        };
-        reader.readAsDataURL(file);
+      // Ajustar tamaño del canvas al viewport
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
       }
-    });
+      window.addEventListener('resize', resize      resizeCanvas();
 
-    document.getElementById('cameraButton').addEventListener('click', function() {
-      const cameraInput = document.createElement('input');
-      cameraInput.type = 'file';
-      cameraInput.accept = 'image/*';
-      cameraInput.capture = 'environment';
-      cameraInput.onchange = function(event) {
+      // Configuración de partículas
+      const particles = [];
+      const particleCount = 80;
+      const colors = ['#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444'];
+
+      // Crear partículas
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedX: (Math.random() - 0.5) * 2,
+          speedY: (Math.random() - 0.5) * 2,
+          alpha: Math.random() * 0.5 + 0.2,
+          life: Math.random() * 100 + 50
+        });
+      }
+
+      // Animar partículas
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+          // Actualizar posición
+          p.x += p.speedX;
+          p.y += p.speedY;
+
+ // Reb en bordes (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+          // Dibujar partícula
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${parseInt(p.color.slice(1, 3), 16)}, ${parseInt(p.color.slice(3, 5), 16)}, ${parseInt(p.color.slice(5, 7), 16)}, ${p.alpha})`;
+          ctx.fill();
+
+          // Reducir vida y reaparecer si muere
+          p.life--;
+          if (p.life <= 0) {
+            p.x = Math.random() * canvas.width;
+            p.y = Math.random() * canvas.height;
+            p.life = Math.random() * 100 + 50;
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // --- FUNCIONES DE INTERACCIÓN ---
+      let imagenAdjunta = null;
+
+      document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
-        if (file) {
+        if (file && file.type.startsWith('')) {
           const reader = new FileReader();
           reader.onload = function(e) {
             imagenAdjunta = e.target.result;
-            console.log("Imagen tomada con cámara");
+            console.log("Imagen adjunta:", file.name);
           };
           reader.readAsDataURL(file);
         }
-      };
-      cameraInput.click();
-    });
+      });
 
-    // --- FUNCIÓN DE ENVIAR PREGUNTA ---
-    let sessionId = null;
-    if (!sessionId) {
-        sessionId = localStorage.getItem('oracleai_session') || Date.now().toString();
-        localStorage.setItem('oracleai_session', sessionId);
-    }
-
-    async function enviarPregunta() {
-      const input = document.getElementById('questionInput');
-      const container = document.getElementById('responseContainer');
-      const pregunta = input.value.trim();
-
-      if (!pregunta) {
-        alert("Por favor, escribe un mensaje.");
-        return;
-      }
-
-      const datosEnviar = {
-        pregunta: pregunta,
-        sessionId: sessionId
-      };
-
-      if (imagenAdjunta) {
-        datosEnviar.imagen = imagenAdjunta;
-      }
-
-      container.innerHTML = '<div class="loading">OracleAI está pensando...</div>';
-
-      try {
-        const response = await fetch('/api/puntar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(datosEnviar)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          container.innerHTML = '';
-          const historyDiv = document.getElementById('historyContainer');
-
-          const userMsgDiv = document.createElement('div');
-          userMsgDiv.classList.add('message', 'user-message');
-          userMsgDiv.textContent = pregunta;
-          historyDiv.appendChild(userMsgDiv);
-
-          if (imagenAdjunta) {
-            const imgPreview = document.createElement('img');
-            imgPreview.src = imagenAdjunta;
-            imgPreview.style.maxWidth = '200px';
-            imgPreview.style.borderRadius = '8px';
-            imgPreview.style.marginTop = '5px';
-            userMsgDiv.appendChild(imgPreview);
+      document.getElementById('cameraButton').addEventListener('click', function() {
+        const cameraInput = document.createElement('input');
+        cameraInput.type = 'file';
+        cameraInput.accept = 'image/*';
+        cameraInput.capture = 'environment';
+        camera.onchange = function(event) {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              imagenAdjunta = e.target.result;
+              console.log("Imagen tomada con cámara");
+            };
+            reader.readAsDataURL(file);
           }
+        };
+        cameraInput.click();
+      });
 
-          const assistantMsgDiv = document.createElement('div');
-          assistantMsgDiv.classList.add('message', 'assistant-message');
-          assistantMsgDiv.textContent = data.respuesta;
-          historyDiv.appendChild(assistantMsgDiv);
-
-          historyDiv.scrollTop = historyDiv.scrollHeight;
-          input.value = '';
-          imagenAdjunta = null;
-          document.getElementById('fileInput').value = '';
-        } else {
-          container.innerHTML = `<div class="response-error">Error: ${data.error}</div>`;
-        }
-      } catch (error) {
-        container.innerHTML = `<div class="response-error">Error de conexión: ${error.message}</div>`;
+      function insertText(text) {
+        const textarea = document.getElementById('questionInput');
+        textarea.value += text + ' ';
+        textarea.focus();
       }
-    }
+
+      let sessionId = null;
+      if (!sessionId) {
+        sessionId = localStorage.getItem('ocladeai_session') || Date.now().toString();
+        localStorage.setItem('ocladeai_session', sessionId);
+      }
+
+      async function enviarPregunta() {
+        const input = document.getElementById('questionInput');
+        const container = document.getElementById('responseContainer');
+        const pregunta = input.value.trim();
+
+        if (!pregunta) {
+          alert("Por favor, escribe un mensaje.");
+          return;
+        }
+
+        const datosEnviar = { pregunta, sessionId };
+        if (imagenAdjunta) datosEnviar.imagen = imagenAdjunta;
+
+        container.innerHTML = '<div class="loading">OcladeAI está procesando tu solicitud...</div>';
+
+        try {
+          const response = await fetch('/api/preguntar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datosEnviar)
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            container.innerHTML = '';
+            const historyDiv = document.getElementById('historyContainer');
+
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.classList.add('message', 'user-message');
+            userMsgDiv.textContent = pregunta;
+            historyDiv.appendChild(userMsgDiv);
+
+            if (imagenAdjunta) {
+              const imgPreview = document.createElement('img');
+              imgPreview.src = imagenAdjunta;
+              imgPreview.style.maxWidth = '200px';
+              imgPreview.style.borderRadius = '8px';
+              imgPreview.style.marginTop = '5px';
+             Div.appendChild(imgPreview);
+            }
+
+            const assistantMsgDiv = document.createElement('div');
+            assistantMsgDiv.classList.add('message', 'assistant-message');
+            assistantMsgDiv.textContent = data.respuesta;
+            historyDiv.appendChild(assistantMsgDiv);
+
+            historyDiv.scrollTop = historyDiv.scrollHeight;
+            input.value = '';
+            imagenAdjunta = null;
+            document.getElementById('fileInput').value = '';
+          } else {
+            container.innerHTML = `<div class="response-error">Error: ${data.error}</div>`;
+          }
+        } catch (error) {
+          container.innerHTML = `<div class="response-error">Error de conexión: ${error.message}</div>`;
+        }
+      }
+    });
   </script>
 
 </body>
